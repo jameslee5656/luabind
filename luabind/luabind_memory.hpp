@@ -1,20 +1,30 @@
 #ifndef LUABIND_MEMORY_HPP_INCLUDED
 #define LUABIND_MEMORY_HPP_INCLUDED
 
-# include <memory>
+#include <memory>
 
-namespace luabind{
+namespace luabind {
 
-#if __cplusplus >= 201103L
-    using std::unique_ptr;
-    using std::move;
+#ifndef LUABIND_NO_STD_UNIQUE_PTR
+
+  using std::unique_ptr;
+  using std::move;
+
 #else
-    using unique_ptr = std::auto_ptr;
-    template<typename T>
-    T move(T ptr){
-        return ptr;
-    }
-#endif
-}
 
-#endif
+  using std::auto_ptr;
+  #define unique_ptr auto_ptr
+
+  #if __cplusplus < 201103L
+  template<typename T>
+  T& move(T& ptr)
+  {
+      return ptr;
+  }
+  #endif // __cplusplus < 201103L
+
+#endif // LUABIND_NO_STD_UNIQUE_PTR
+
+} // namespace luabind
+
+#endif // LUABIND_MEMORY_HPP_INCLUDED

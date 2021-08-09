@@ -234,7 +234,7 @@ namespace luabind { namespace detail {
     // -- interface ---------------------------------------------------------
 
     class_base::class_base(char const* name_)
-         : scope(luabind::unique_ptr<registration>(
+        : scope(luabind::unique_ptr<registration>(
                 m_registration = new class_registration(name_))
           )
     {

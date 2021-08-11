@@ -107,10 +107,6 @@ if(LUABIND_NO_STD_SHARED_PTR)
     add_definitions(-DLUABIND_NO_STD_SHARED_PTR)
 endif()
 
-if(LUABIND_NO_STD_UNIQUE_PTR)
-    add_definitions(-DLUABIND_NO_STD_UNIQUE_PTR)
-endif()
-
 # Configure the build info header
 file(MAKE_DIRECTORY "${CMAKE_CURRENT_BINARY_DIR}/luabind")
 configure_file(build_information.hpp.cmake_in "${CMAKE_CURRENT_BINARY_DIR}/luabind/build_information.hpp")

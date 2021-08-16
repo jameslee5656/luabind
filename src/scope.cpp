@@ -72,7 +72,31 @@ namespace luabind { namespace detail {
         delete m_chain;
     }
 
-    scope& scope::operator,(scope s)
+#if __cplusplus >= 201103L
+    scope& scope::operator,(scope&& s) // for rvalues
+    {
+        if (!m_chain)
+        {
+            m_chain = std::move(s.m_chain);
+            s.m_chain = 0;
+            return *this;
+        }
+
+        for (detail::registration* c = m_chain;; c = c->m_next)
+        {
+            if (!c->m_next)
+            {
+                c->m_next = std::move(s.m_chain);
+                s.m_chain = 0;
+                break;
+            }
+        }
+
+        return *this;
+    }
+#endif // __cplusplus >= 201103L
+
+    scope& scope::operator,(scope& s) // for lvalue
     {
         if (!m_chain)
         {

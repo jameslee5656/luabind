@@ -33,21 +33,13 @@ namespace luabind {
 
 using boost::get_pointer;
 
-<<<<<<< HEAD
-#ifdef LUABIND_USE_CXX11
-=======
 #ifndef LUABIND_NO_STD_UNIQUE_PTR
->>>>>>> 498039b... refs #2062 refine CMakeList and defines with LUABIND_NO_STD_UNIQUE_PTR
 template <typename T, typename Deleter>
 T* get_pointer(std::unique_ptr<T, Deleter> const& ptr)
 {
     return ptr.get();
 }
-<<<<<<< HEAD
-#endif
-=======
 #endif // LUABIND_NO_STD_UNIQUE_PTR
->>>>>>> 498039b... refs #2062 refine CMakeList and defines with LUABIND_NO_STD_UNIQUE_PTR
 
 } // namespace luabind
 

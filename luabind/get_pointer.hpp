@@ -28,6 +28,8 @@
 //
 
 # include <boost/get_pointer.hpp>
+# include <luabind/build_information.hpp>
+# include <luabind_memory.hpp>
 
 namespace luabind {
 
@@ -35,7 +37,7 @@ using boost::get_pointer;
 
 #ifndef LUABIND_NO_STD_UNIQUE_PTR
 template <typename T, typename Deleter>
-T* get_pointer(std::unique_ptr<T, Deleter> const& ptr)
+T* get_pointer(luabind::unique_ptr<T, Deleter> const& ptr)
 {
     return ptr.get();
 }

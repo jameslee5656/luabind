@@ -69,7 +69,7 @@ namespace luabind {
 #if __cplusplus >= 201103L
         scope& operator,(scope&& s);
 #endif // __cplusplus >= 201103L
-        scope& operator,(scope& s);
+        scope& operator,(const scope& s);
 
         void register_(lua_State* L) const;
 

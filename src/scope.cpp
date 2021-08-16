@@ -77,29 +77,6 @@ namespace luabind { namespace detail {
     {
         if (!m_chain)
         {
-            m_chain = std::move(s.m_chain);
-            s.m_chain = 0;
-            return *this;
-        }
-
-        for (detail::registration* c = m_chain;; c = c->m_next)
-        {
-            if (!c->m_next)
-            {
-                c->m_next = std::move(s.m_chain);
-                s.m_chain = 0;
-                break;
-            }
-        }
-
-        return *this;
-    }
-#endif // __cplusplus >= 201103L
-
-    scope& scope::operator,(scope& s) // for lvalue
-    {
-        if (!m_chain)
-        {
             m_chain = s.m_chain;
             s.m_chain = 0;
             return *this;
@@ -111,6 +88,29 @@ namespace luabind { namespace detail {
             {
                 c->m_next = s.m_chain;
                 s.m_chain = 0;
+                break;
+            }
+        }
+
+        return *this;
+    }
+#endif // __cplusplus >= 201103L
+
+    scope& scope::operator,(const scope& s) // for lvalue
+    {
+        if (!m_chain)
+        {
+            m_chain = s.m_chain;
+            const_cast<scope&>(s).m_chain = 0;
+            return *this;
+        }
+
+        for (detail::registration* c = m_chain;; c = c->m_next)
+        {
+            if (!c->m_next)
+            {
+                c->m_next = s.m_chain;
+                const_cast<scope&>(s).m_chain = 0;
                 break;
             }
         }

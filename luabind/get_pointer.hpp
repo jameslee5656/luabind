@@ -28,8 +28,8 @@
 //
 
 # include <boost/get_pointer.hpp>
-# include <luabind/build_information.hpp>
-# include <luabind_memory.hpp>
+# include <luabind/luabind_memory.hpp>
+
 
 namespace luabind {
 

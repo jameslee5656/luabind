@@ -292,7 +292,7 @@ namespace luabind { namespace detail {
 
     void class_base::add_inner_scope(scope& s)
     {
-        m_registration->m_scope.operator,(s);
+        m_registration->m_scope.operator,(luabind::move(s));
     }
 
     void class_base::add_cast(
